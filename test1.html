@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>자기소개</title>
+
+    <style>
+        body{background-color: linen; color: green;
+            margin-left:40px; margin-right: 40px;}
+        h3{ text-align: center; color: darkred;}
+        hr{height:3px; border: solid grey;
+            background-color:grey;}
+        span{color:blue; font-size:20px;}
+    </style>
+    <script>
+        function show(){
+            document.getElementById("me").src="https://github.com/tco0427/web2/blob/master/pony.jpeg?raw=true";
+        }
+        function hide(){
+            document.getElementById("me").src="";
+        }
+    </script>
+</head>
+
+<body>
+<h3 onmouseover="show()" onmouseout="hide()">김동규</h3>
+<hr>
+<div><img id="me" src="" width="150"></div>
+안녕하세요. 저는 단국대학교 컴퓨터공학과에 재학하면서 <span>백엔드 개발자</span>라는 꿈을 키우는 '김동규'라고 합니다.
+</body>
+</html>
