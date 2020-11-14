@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>마우스 클릭 연습</title>
+	<style>
+		table{
+			border: 1px solid black;
+			border-collapse:collapse;
+		}
+		td{
+			border: 1px solid black;
+			width:50px;
+			height:50px;
+		}
+		img{
+			width: 48px;
+			height: 48px;
+		}
+	</style>
+	<script>
+		var random=0;
+		//일일이 100개 가량의 셀을 직접 HTML코드로 입력하는 것은 비효율적이므로
+		//javascript코드를 이용하여 body로드 완료시에 load()함수를 호출해 실행하고
+		//tbody의 자식으로 tr을, tr의 자식으로 10개의 td를
+		//appendChild로 추가하는 과정을 10번 반복하도록하였다.
+		function load(){
+			var tbody=document.getElementById("tableBody");
+
+			for(var row=0;row<10;row++){
+				var tr=document.createElement("tr");
+				tbody.appendChild(tr);
+				for(var col=0;col<10;col++){
+					var td=document.createElement("td");
+					//img태그의 src를 ""로 두는 것은 표준에 맞지 않으므로 우선 모든 td에 그림을 삽입해준다.
+					//이후 visibility를 hidden으로 설정해주도록하였다.
+					td.innerHTML="<img src='https://github.com/tco0427/web2/blob/master/robot.png?raw=true' alt='robot'>";
+					tr.appendChild(td);
+				}
+			}
+
+			for(var index=0;index<100;index++){
+				//document.images[]를 통해 웹 페이지에 있는 모든 이미지를 접근하면서
+				//click이벤트 이름과 함께 이벤트 발생을 처리할 리스너를 함께 전달해주면서 리스너를 등록한다.
+				document.images[index].addEventListener("click",changeLoc);
+				//그리고 visibility프로퍼티를 이용하여 해당 태그를 숨기도록한다.(단, 영역은 계속 차지)
+				document.images[index].style.visibility="hidden";
+			}
+
+			//셀을 위한 준비과정을 마치고 100개 중 랜덤하게 하나를 출력하도록(visible) 한다.
+			random=Math.floor(Math.random()*100);
+			document.images[random].style.visibility="visible";
+
+		}
+
+		//이미지에 클릭 이벤트가 발생하면 다음의 함수가 호출된다.(onclick리스너로 changeLoc()함수 등록)
+		function changeLoc(){
+			//document.images[random]은 가장 마지막에 변경된 이미지를 가리킬 것이다.
+			//이 이미지의 visibility가 visible인지, 즉 해당 태그가 출력되는지를 if문을 통해 검사하여
+			//로봇 이미지를 클릭하엿을 때만 이미지가 랜덤하게 다른 셀을 선택하도록 해준다.
+			//이를 통해 이미지가 아닌 다른 셀을 클릭하면 해당함수는 호출되지만 이미지의 위치는 바뀌지 않는다.
+			var bufImg=document.images[random];
+			if(bufImg.style.visibility=="visible"){
+				//기존 이미지를 안보이게 숨기고
+				document.images[random].style.visibility="hidden";
+				//랜덤하게 하나 골라서 보이도록(출력되도록)해준다.
+				random=Math.floor(Math.random()*100);
+				document.images[random].style.visibility="visible";
+			}
+		}
+	</script>
+</head>
+<body onload="load()">
+<h3>마우스 클릭 연습</h3>
+<hr>
+<table>
+	<tbody id="tableBody">
+	</tbody>
+</table>
+</body>
+</html>

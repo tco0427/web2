@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>눈 내리는 사걀의 마을</title>
+	<style>
+		body{
+			background-image:url("https://github.com/tco0427/web2/blob/master/winter.jpg?raw=true");
+			background-size:100%;
+			background-repeat:no-repeat;
+		}
+		div{
+			position: absolute;
+			padding:0px;
+			margin:0px;
+		}
+		div img{
+			position: absolute;
+			width:15px;
+		}
+	</style>
+	
+	<script>
+		
+		var snowflake = new Array(30);		// 눈 30개 배열
+		var x = new Array(30);				// 눈의 x좌표
+		var y = new Array(30);				// 눈의 y좌표
+		var snowHeight = new Array(30);		// 눈이 아래로 내려가는 좌표 변화
+		var snowWidth = new Array(30);		// 눈의 좌우 좌표 변화
+
+		function snowFlake(){
+			for(var i=0;i<30;i++){
+				x[i] = Math.floor(Math.random()*window.innerWidth);
+				y[i] = Math.floor(Math.random()*window.innerHeight);
+				//눈은 아래로만 내려가므로 양수만 고려(snowWidth의 경우 음수와 양수 모두 고려)
+				snowHeight[i]=Math.random()*5+2;
+				//임의의 양수 or 음수를 통해 좌우로 이동하기 위해 -0.5를 해준다.
+				snowWidth[i] = (Math.random()-0.5)*2;
+				var div = 
+				"<div id=snow"+i+" style='top:" + x[i] + "px;left:" + y[i] + "px'><img src='https://github.com/tco0427/web2/blob/master/snowflake.png?raw=true'></div>";
+				document.write(div);
+				snowflake[i] = document.getElementById("snow"+i);
+			}
+		}
+
+		function load() {
+			for(i=0; i<30; i++){
+				x[i] += snowWidth[i];
+				y[i] += snowHeight[i];
+				//땅에 닿으면 해당 눈의 좌표 변경
+				if(y[i] >= window.innerHeight*0.9) {
+					x[i] = Math.floor(Math.random()*window.innerWidth);
+					y[i] = 0;
+				}
+
+				snowflake[i].style.top = y[i] + "px";
+				snowflake[i].style.left = x[i] + "px";
+
+				//load() 호출 시 마다 좌우로 랜덤하게
+				snowWidth[i] = (Math.random()-0.5)*2;
+			}
+			//시간에 따른 웹 페이지 변화를 위해 타이머 활용
+			//50ms마다 한 번씩 load()를 호출한다.(50ms 지연 시간 후 load()호출)
+			setTimeout("load()",50);
+		}
+	
+	</script>
+
+</head>
+<body onload="load()">
+	<script>
+		snowFlake();
+	</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+/*웹프로그래밍 3분반 32180472 김동규 5주차 과제*/
+html,body{
+        height:100%;
+        width: 100%;    
+        margin:0;
+        padding:0;
+}
+header{
+    display:block;
+    background-color: yellowgreen;
+
+    /*margin-top:-20px;*/
+    
+    position:relative;
+    top:-20px;
+    
+    
+    width:100%;
+}
+section{
+    display: block;
+    background-color: pink;
+    margin: -20px 10px 10px 10px;
+}
+footer{
+    display:block;
+    width:100%;
+    height:auto;
+    padding-top:10px;
+    padding-bottom:10px;
+    background-color:violet;
+}
+/*5주차 과제 이전 적용하였던 css코드들*/
+h1{
+    text-align:center;
+    color: brown;
+}
+fieldset{
+    border:0px;
+}
+header p{
+    text-align:center;
+}
+fieldset span, fieldset div{
+    font-weight: bold;
+    color: blue;
+}
+button:hover{
+    cursor: pointer;
+}
