@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>캔버스에 파이 차트 그리기</title>
+	<script>
+		function chartDraw(){
+			var colors=["blue", "green","yellow","magenta","red"];
+			var grades=["A","B","C","D","E"];
+
+			var canvas=document.getElementById("myCanvas");
+			var context=canvas.getContext("2d");
+			context.clearRect(0,0,canvas.width,canvas.height);
+
+			//전체 학생수
+			var sum=0;
+
+
+			//전체 학생 수 구하기
+			for(var i=0;i<grades.length;i++){
+				var buf=parseInt(document.getElementById(grades[i]).value);
+				//학생 수가 음수일 수 없으므로 이를 처리
+				if(buf<0){
+					alert("잘못된 입력이 존재합니다.(학생 수가 음수일 수 없습니다.)");
+					window.location.reload(true);
+					return;
+				}
+				sum=sum+buf;
+			}
+
+			//차트의 중심
+			var x=300;
+			var y=300;
+
+
+			var currentPosition=0;
+			var targetPosition=0;
+			
+			context.font="12px arial";
+			
+			for(var i=0;i<grades.length;i++){
+				var value=parseInt(document.getElementById(grades[i]).value);
+				//텍스트에 %는 소수점 없이 표시&sum이 0이면 0으로 나눌 수 없으므로 검사
+				var part=0;
+				if(sum!=0){
+					part=Math.round((value/sum)*100);
+				}
+				//텍스트는 모두 파란색으로 표시해주기 위해서
+				context.fillStyle="blue";
+				context.fillText(grades[i]+"학점"+part+"%: "+colors[i],10,15+12*i);
+
+				//원호의 끝 각도를 학생수의 비율을 기준으로 구해준다.
+				targetPosition=targetPosition+((value*2*Math.PI)/sum);
+
+				context.beginPath();
+				context.moveTo(x,y);
+				context.arc(x,y,200,currentPosition,targetPosition);
+				context.closePath();
+				context.fillStyle=colors[i];
+				context.fill();
+				
+				//원호의 끝 각도가 다음 반복에서 시작 각도가 된다.
+				currentPosition=targetPosition;
+			}
+			
+		}
+	</script>
+</head>
+<body>
+	<h3>학점 별로 학생 수를 입력하면 파이 차트로 비율 그리기</h3>
+	<hr>
+	<form name="form" target="_self">
+		<label>
+			A
+			<input id="A" type="number" value="0">
+			명
+		</label>
+		<label>
+			B
+			<input id="B" type="number" value="0">
+			명
+		</label>
+		<label>
+			C
+			<input id="C" type="number" value="0">
+			명
+		</label>
+		<br>
+		<label>
+			D
+			<input id="D" type="number" value="0">
+			명
+		</label>
+		<label>
+			E
+			<input id="E" type="number" value="0">
+			명
+		</label>
+		<input type="button" value="차트 그리기" onclick="chartDraw()">
+	</form>
+	<canvas id="myCanvas" width="600px" height="600px" style="background-color: lightblue">
+		canvas 태그를 지원하지 않는 브라우저입니다.
+	</canvas>
+</body>
+</html>
