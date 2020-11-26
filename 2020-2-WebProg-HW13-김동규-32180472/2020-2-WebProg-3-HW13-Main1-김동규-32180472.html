@@ -48,6 +48,8 @@
 					alert("저장이 완료되었습니다.");
 				}
 			}
+			document.getElementById("en").value="";
+			document.getElementById("ko").value="";
 		}
 		function retrieve(){
 			if(!window.localStorage){
@@ -72,6 +74,8 @@
 				localStorage.removeItem(english.value);
 				alert("삭제가 완료되었습니다.");
 			}
+			document.getElementById("en").value="";
+			document.getElementById("ko").value="";
 		}
 		function showAll(){
 			if(!window.localStorage){
