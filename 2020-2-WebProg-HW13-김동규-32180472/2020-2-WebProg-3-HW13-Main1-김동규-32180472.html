@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>단어장 만들기</title>
+</head>
+<body>
+	<h3>나의 단어장 만들기</h3>
+	<hr>
+	<form name="form">
+		<label>
+			영어
+			<input id="en" type="text" name="en" size="20" value="">
+		</label>
+		<br>
+		<label>
+			한글
+			<input id="ko" type="text" name="ko" size="20" value="">
+		</label>
+		<br>
+		<br>
+		<input type="button" value="단어 저장" onclick="store()">
+		<input type="button" value="영단어 검색" onclick="retrieve()">
+		<input type="button" value="단어 삭제" onclick="deleteWord()">
+		<input type="button" value="전체 보기" onclick="showAll()">
+	</form>
+	<script>
+		var korea=document.getElementById("ko");
+		var english=document.getElementById("en");
+
+		function store(){
+			if(!window.localStorage){
+				alert("로컬 스토리지를 지원하지 않습니다.");
+				return;
+			}
+			var buf=localStorage.getItem(english.value);
+			if(korea.value==""){
+				alert("영어 단어에 대응하는 한글을 입력해주세요.");
+				return;
+			}
+			if(buf==null){
+				localStorage.setItem(english.value,korea.value);
+				alert("저장이 완료되었습니다.");
+			}else{
+				var check=confirm(english.value+"가 이미 있습니다. 수정하시겠습니까?");
+				if(check){
+					localStorage.setItem(english.value,korea.value);
+					alert("저장이 완료되었습니다.");
+				}
+			}
+		}
+		function retrieve(){
+			if(!window.localStorage){
+				alert("로컬 스토리지를 지원하지 않습니다.");
+				return;
+			}
+			var buf=localStorage.getItem(english.value);
+			if(buf==null){
+				alert(english.value+"는 없는 단어입니다.");
+			}else{
+				korea.value=buf;
+			}
+		}
+		function deleteWord(){
+			if(!window.localStorage){
+				alert("로컬 스토리지를 지원하지 않습니다.");
+				return;
+			}
+			if(localStorage.getItem(english.value)==null){
+				alert(english.value+"는 없는 단어입니다.");
+			}else{
+				localStorage.removeItem(english.value);
+				alert("삭제가 완료되었습니다.");
+			}
+		}
+		function showAll(){
+			if(!window.localStorage){
+				alert("로컬 스토리지를 지원하지 않습니다.");
+				return;
+			}
+			window.open("2020-2-WebProg-3-HW13-Main2-김동규-32180472.html")
+		}
+
+	</script>
+</body>
+</html>

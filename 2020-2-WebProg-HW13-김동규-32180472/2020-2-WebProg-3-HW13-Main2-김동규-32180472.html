@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>단어장</title>
+	<style>
+		table{
+			background: aliceblue;
+		}
+	</style>
+	<script>
+		function load(){
+			var tbody=document.getElementById("tableBody");
+			var len=localStorage.length;
+			for(var row=0;row<len;row++){
+				var tr=document.createElement("tr");
+				tbody.appendChild(tr);
+
+				var td1=document.createElement("td");
+				td1.innerHTML=(row+1);
+				td1.style.border="1px solid green";
+				tr.appendChild(td1);
+
+				var td2=document.createElement("td");
+				var key=localStorage.key(row);
+				td2.innerHTML=key;
+				td2.style.font="bold 15px consolas";
+				td2.style.textAlign="center";
+				td2.style.width="80px";
+				tr.appendChild(td2);
+
+				var td3=document.createElement("td");
+				var val=localStorage.getItem(key);
+				td3.innerHTML=val;
+				td3.style.textAlign="left";
+				td3.style.width="80px";
+				tr.appendChild(td3);
+			}
+		}
+	</script>
+</head>
+<body onload="load()">
+	<h3>나의 단어장 모두 출력</h3>
+	<hr>
+	<table>
+		<tbody id="tableBody">
+		</tbody>
+	</table>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>오디오 리스트 연속 재생</title>
+</head>
+<body onload="load()">
+	<h3>오디오 리스트 연속 재생</h3>
+	<hr>
+	<p>
+		처음 play 버튼을 누르면 리스트에 있는 곡이 연속하여 자동 재생 됩니다. 마우스로 다른 곳을 선택하면 곡이 바뀝니다. next 버튼을 누르면 다음 곡으로 넘어갑니다.
+	</p>
+	<hr>
+	<audio id="audio" controls>
+	</audio>
+	<br>
+	<br>
+	<select id="select" size="1" onchange="play()">
+		<option value="https://docs.google.com/uc?export=open&id=1pI_Y_y-AZ4YZc7tLL_CajY7e9MnYoSrx">나는 항상 내게 솔직하지 못 해</option>
+		<option value="https://docs.google.com/uc?export=open&id=1J7VwCRvV60WCxvA7ZCoXJrvzwDWgtROx">기다려줘</option>
+		<option value="https://docs.google.com/uc?export=open&id=1rzYgvLmmUA4grrubYw76C7CHKnrGDW_r">Take Off</option>
+		<option value="https://docs.google.com/uc?export=open&id=1uktoXJmcp_CfSTxjWFqd2yoPWkqODgRB">When you leave me behind</option>
+		<option value="https://docs.google.com/uc?export=open&id=1R9xdQ7pidnprJCdHcZ_XKOhnRSosBzF2">안녕</option>
+	</select>
+	<input type="button" value="play" onclick="play()">
+	<input type="button" value="next" onclick="next()">
+	<br>
+	<br>
+	<div id="songName">현재 연주되는 곡명이 보입니다.</div>
+
+	<script>
+		var div=document.getElementById("songName");
+		var audio=document.getElementById("audio");
+		var select=document.getElementById("select");
+
+		function play(){
+			var selectedSong=select.options[select.selectedIndex].value;
+			audio.src=selectedSong;
+			audio.load();
+			audio.play();
+			div.innerHTML="\""+select.options[select.selectedIndex].innerHTML+"\" 를 재생중입니다.";
+		}
+		function next(){
+			select.selectedIndex=(select.selectedIndex+1)%(select.length);
+			play();
+		}
+		audio.onended=function(e){
+			next();
+		}
+
+	</script>
+</body>
+</html>
