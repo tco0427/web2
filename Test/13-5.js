@@ -12,4 +12,5 @@ onmessage=function(e){
 	}else{
 		grade="F";
 	}
+	postMessage(grade);
 }
