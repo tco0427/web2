@@ -1,5 +1,5 @@
-var grade;
 onmessage=function(e){
+	var grade;
 	var score=e.data;
 	if(score>=90&&score<=100){
 		grade="A";
