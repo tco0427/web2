@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script>
+</script>
+</head>
+<body>
+	<h3>
+		학점 매기기
+	</h3>
+	<hr>
+	<input type="button" value="점수 입력" onclick="input()">
+	<p id="p"></p>
+	<script>
+		var Worker=new Worker("13-5.js");
+		function input(){
+			var input=prompt("점수를 숫자로 입력하세요","");
+			input=parseInt(input);
+			if(isNaN(input)){
+				alert("점수를 숫자로!");
+			}
+			p.innerHTML=input;
+			Worker.postMessage(input);
+		}
+
+		Worker.onmessage=function(e){
+			document.getElementById("p").innerHTML+=("= "+e.data);
+		}
+	</script>
+</body>
+</html>
